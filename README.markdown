@@ -86,7 +86,7 @@ the root of the repository.
 ### Version 0.1.0
 
 - Initial release.
-- Initial upload to Forgejo.
+- Initial upload to GitHub.
 
 ## NOTE
 
