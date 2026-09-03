@@ -1,0 +1,13 @@
+[package]
+name = "jmu"
+version = "0.1.0"
+edition = "2024"
+author = ["Alyx Shang <alyxshang@alyxshang.boo>"]
+license-file = "LICENSE"
+readme = "README.markdown"
+description= "A parser and deserializer for a data markup language inspired by Jirai Kei."
+homepage = "https://github.com/alyxshang/jmu"
+repository = "https://github.com/alyxshang/jmu"
+
+[dependencies]
+serde = { version = "1.0.228", features = ["derive"] }
