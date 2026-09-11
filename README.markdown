@@ -16,7 +16,7 @@ structures.
 
 ## SPECIFICATION
 
-A specification of the ***J***irai ***M***ark***U***p Language can be found [here](https://alyxshang.boo/jmu).
+A specification of the ***J***irai ***M***ark***U***p Language can be found [here](https://alyxshang.boo/specs/jmu).
 
 ## USAGE
 
@@ -91,4 +91,4 @@ the root of the repository.
 ## NOTE
 
 - *JMU* by *Alyx Shang*.
-- Licensed under the [FSL v1](https://alyxshang.boo/fair-software-license).
+- Licensed under the [FSL v1](https://alyxshang.boo/content/fair-software-license).
