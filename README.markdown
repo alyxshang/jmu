@@ -27,7 +27,7 @@ project's `Cargo.toml`:
 
 ```TOML
 serde = { version = "1.0.228", features = ["derive"] }
-jmu = { git = "https://github.com/alyxshang/jmu", tag = "v.0.1.0" }
+jmu = { git = "https://github.com/alyxshang/jmu", tag = "v.0.2.0" }
 ```
 
 You would use the ***JMU*** crate in your code in a manner similar to
@@ -87,6 +87,11 @@ the root of the repository.
 
 - Initial release.
 - Initial upload to GitHub.
+
+### Version 0.2.0
+
+- The `Position` structure was exported to its own module.
+- More verbose error messages with exact position information.
 
 ## NOTE
 

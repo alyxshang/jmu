@@ -111,14 +111,14 @@ impl Parser {
     ) -> Result<Token, JMUErr>{
         if self.is_done(){
             Err::<Token, JMUErr>(
-                JMUErr::new("Unexpected end of token stream:")
+                JMUErr::new("Unexpected end of token stream.")
             )
         }
         else {
             let token: Token = match self.stream.get(self.cursor + n){
                 Some(token) => token.clone(),
                 None => return Err::<Token, JMUErr>(
-                    JMUErr::new("Unexpected end of token stream:")
+                    JMUErr::new("Unexpected end of token stream.")
                 )
             };
             Ok(token)
@@ -152,8 +152,10 @@ impl Parser {
             Err::<Token, JMUErr>(
                 JMUErr::new(
                     &format!(
-                        "Expected token of type \"{:?}\"!",
-                        token_type
+                        "Expected token of type \"{:?}\" at position \"{:?}:{:?}\"!",
+                        token_type,
+                        token.start.line,
+                        token.start.column
                     )
                 )
             )
@@ -211,7 +213,13 @@ impl Parser {
                     self.parse_nested_assignment()?
                 ), 
                 _ => Err::<Assignment, JMUErr>(
-                    JMUErr::new("Unexpected value token.")
+                    JMUErr::new(
+                        &format!(
+                            "Unexpected value token at position \"{:?}:{:?}\"!",
+                            next.start.line,
+                            next.start.column
+                        )
+                    )
                 )
             }
         }
@@ -221,7 +229,13 @@ impl Parser {
         }
         else {
             Err::<Assignment, JMUErr>(
-                JMUErr::new("Expected a string and then an assignment smybol.")
+                JMUErr::new(
+                    &format!(
+                        "Expected a string and then an assignment smybol at position \"{:?}:{:?}\"!",
+                        self.peek_n(&0)?.start.line,
+                        self.peek_n(&0)?.start.column
+                    )
+                )
             )
         }
     }
@@ -255,14 +269,25 @@ impl Parser {
                 TokenType::SectionMarker =>
                     Ok(self.parse_assignment_list()?),
                 _ => Err::<Assignment, JMUErr>(
-                    JMUErr::new("Unexpected token.")
+                    JMUErr::new(
+                        &format!(
+                            "Unexpected token at position \"{:?}:{:?}\"!",
+                            self.peek_n(&0)?.start.line,
+                            self.peek_n(&0)?.start.column
+                        )
+                    )
                 )
             }
         }
         else {
             Err::<Assignment, JMUErr>(
                 JMUErr::new(
-                    "Expected a string, an assignment symbol, and an open square bracket."
+                    &format!(
+                        "Expected a string, an assignment symbol, and an open square bracket at position \"{:?}:{:?}\"!",
+                        self.peek_n(&0)?.start.line,
+                        self.peek_n(&0)?.start.column
+                    )
+
                 )
             )
         }
@@ -304,7 +329,13 @@ impl Parser {
                 let value: String = match val_token.value{
                     Some(value) => value,
                     None => return Err::<Assignment, JMUErr>(
-                        JMUErr::new("Received an empty string.")
+                        JMUErr::new(
+                            &format!(
+                                "Received an empty string at position \"{:?}:{:?}\"!",
+                                val_token.start.line,
+                                val_token.start.column
+                            )
+                        )
                     )
                 };
                 value_buf.push(value);
@@ -313,7 +344,13 @@ impl Parser {
         let key: String = match key_token.value{
             Some(key) => key,
             None => return Err::<Assignment, JMUErr>(
-                JMUErr::new("Received an empty key.")
+                JMUErr::new(
+                    &format!(
+                        "Received an empty string at position \"{:?}:{:?}\"!",
+                        key_token.start.line,
+                        key_token.start.column
+                    )
+                )
             )
         };
         Ok(Assignment::StringListAssign(key, value_buf))
@@ -355,7 +392,13 @@ impl Parser {
                 let value: String = match val_token.value{
                     Some(value) => value,
                     None => return Err::<Assignment, JMUErr>(
-                        JMUErr::new("Received an empty string.")
+                        JMUErr::new(
+                            &format!(
+                                "Received an empty string at position \"{:?}:{:?}\"!",
+                                val_token.start.line,
+                                val_token.start.column
+                            )
+                        )
                     )
                 };
                 if value == "true"{
@@ -366,7 +409,13 @@ impl Parser {
                 }
                 else {
                     return Err::<Assignment, JMUErr>(
-                        JMUErr::new("Received an unknown boolean string.")
+                        JMUErr::new(
+                            &format!(
+                                "Received an unknown boolean string at position \"{:?}:{:?}\"!",
+                                val_token.start.line,
+                                val_token.start.column
+                            )
+                        )
                     )
                 }
             }
@@ -374,7 +423,13 @@ impl Parser {
         let key: String = match key_token.value{
             Some(key) => key,
             None => return Err::<Assignment, JMUErr>(
-                JMUErr::new("Received an empty key.")
+                JMUErr::new(
+                    &format!(
+                        "Received an empty string at position \"{:?}:{:?}\"!",
+                        key_token.start.line,
+                        key_token.start.column
+                    )
+                )
             )
         };
         Ok(Assignment::BoolListAssign(key, value_buf))
@@ -416,7 +471,13 @@ impl Parser {
                 let value: String = match val_token.value{
                     Some(value) => value,
                     None => return Err::<Assignment, JMUErr>(
-                        JMUErr::new("Received an empty string.")
+                        JMUErr::new(
+                            &format!(
+                                "Received an empty string at position \"{:?}:{:?}\"!",
+                                val_token.start.line,
+                                val_token.start.column
+                            )
+                        )
                     )
                 };
                 let casted: usize = match value.parse::<usize>(){
@@ -431,7 +492,13 @@ impl Parser {
         let key: String = match key_token.value{
             Some(key) => key,
             None => return Err::<Assignment, JMUErr>(
-                JMUErr::new("Received an empty key.")
+                JMUErr::new(
+                    &format!(
+                        "Received an empty string at position \"{:?}:{:?}\"!",
+                        key_token.start.line,
+                        key_token.start.column
+                    )
+                )
             )
         };
         Ok(Assignment::IntegerListAssign(key, value_buf))
@@ -473,7 +540,13 @@ impl Parser {
                 let value: String = match val_token.value{
                     Some(value) => value,
                     None => return Err::<Assignment, JMUErr>(
-                        JMUErr::new("Received an empty string.")
+                        JMUErr::new(
+                            &format!(
+                                "Received an empty string at position \"{:?}:{:?}\"!",
+                                val_token.start.line,
+                                val_token.start.column
+                            )
+                        )
                     )
                 };
                 let casted: f64 = match value.parse::<f64>(){
@@ -488,7 +561,13 @@ impl Parser {
         let key: String = match key_token.value{
             Some(key) => key,
             None => return Err::<Assignment, JMUErr>(
-                JMUErr::new("Received an empty key.")
+                JMUErr::new(
+                    &format!(
+                        "Received an empty string at position \"{:?}:{:?}\"!",
+                        key_token.start.line,
+                        key_token.start.column
+                    )
+                )
             )
         };
         Ok(Assignment::FloatingListAssign(key, value_buf))
@@ -510,13 +589,25 @@ impl Parser {
         let key: String = match key_token.value{
             Some(key) => key,
             None => return Err::<Assignment, JMUErr>(
-                JMUErr::new("Received an empty key.")
+                JMUErr::new(
+                    &format!(
+                        "Received an empty string at position \"{:?}:{:?}\"!",
+                        key_token.start.line,
+                        key_token.start.column
+                    )
+                )
             )
         };
         let value: String = match value_token.value{
             Some(value) => value,
             None => return Err::<Assignment, JMUErr>(
-                JMUErr::new("Received an empty value.")
+                JMUErr::new(
+                    &format!(
+                        "Received an empty string at position \"{:?}:{:?}\"!",
+                        value_token.start.line,
+                        value_token.start.column
+                    )
+                )
             )
         };
         Ok(Assignment::StringAssign(key, value))
@@ -538,13 +629,25 @@ impl Parser {
         let key: String = match key_token.value{
             Some(key) => key,
             None => return Err::<Assignment, JMUErr>(
-                JMUErr::new("Received an empty key.")
+                JMUErr::new(
+                    &format!(
+                        "Received an empty string at position \"{:?}:{:?}\"!",
+                        key_token.start.line,
+                        key_token.start.column
+                    )
+                )
             )
         };
         let value: String = match value_token.value{
             Some(value) => value,
             None => return Err::<Assignment, JMUErr>(
-                JMUErr::new("Received an empty value.")
+                JMUErr::new(
+                    &format!(
+                        "Received an empty string at position \"{:?}:{:?}\"!",
+                        value_token.start.line,
+                        value_token.start.column
+                    )
+                )
             )
         };
         let number_cast: usize = match value.parse::<usize>(){
@@ -572,13 +675,25 @@ impl Parser {
         let key: String = match key_token.value{
             Some(key) => key,
             None => return Err::<Assignment, JMUErr>(
-                JMUErr::new("Received an empty key.")
+                JMUErr::new(
+                    &format!(
+                        "Received an empty string at position \"{:?}:{:?}\"!",
+                        key_token.start.line,
+                        key_token.start.column
+                    )
+                )
             )
         };
         let value: String = match value_token.value{
             Some(value) => value,
             None => return Err::<Assignment, JMUErr>(
-                JMUErr::new("Received an empty value.")
+                JMUErr::new(
+                    &format!(
+                        "Received an empty string at position \"{:?}:{:?}\"!",
+                        value_token.start.line,
+                        value_token.start.column
+                    )
+                )
             )
         };
         let number_cast: f64 = match value.parse::<f64>(){
@@ -606,13 +721,25 @@ impl Parser {
         let key: String = match key_token.value{
             Some(key) => key,
             None => return Err::<Assignment, JMUErr>(
-                JMUErr::new("Received an empty key.")
+                JMUErr::new(
+                    &format!(
+                        "Received an empty string at position \"{:?}:{:?}\"!",
+                        key_token.start.line,
+                        key_token.start.column
+                    )
+                )
             )
         };
         let value: String = match value_token.value{
             Some(value) => value,
             None => return Err::<Assignment, JMUErr>(
-                JMUErr::new("Received an empty value.")
+                JMUErr::new(
+                    &format!(
+                        "Received an empty string at position \"{:?}:{:?}\"!",
+                        value_token.start.line,
+                        value_token.start.column
+                    )
+                )
             )
         };
         let bool_value: bool;
@@ -624,7 +751,13 @@ impl Parser {
         }
         else {
             return Err::<Assignment, JMUErr>(
-                JMUErr::new("Received an unknown boolean string.")
+                JMUErr::new(
+                    &format!(
+                        "Received an unknown boolean string at position \"{:?}:{:?}\"!",
+                        value_token.start.line,
+                        value_token.start.column
+                    )
+                )
             )
         }
         Ok(Assignment::BoolAssign(key, bool_value))
@@ -661,7 +794,13 @@ impl Parser {
         let key: String = match key_token.value{
             Some(key) => key,
             None => return Err::<Assignment, JMUErr>(
-                JMUErr::new("Received an empty value.")
+                JMUErr::new(
+                    &format!(
+                        "Received an empty key at position \"{:?}:{:?}\"!",
+                        key_token.start.line,
+                        key_token.start.column
+                    )
+                )
             )
         };
         Ok(Assignment::NestedAssign(key, Box::new(inner_assignments)))
@@ -721,7 +860,13 @@ impl Parser {
         let key_str: String = match key.value{
             Some(key_str) => key_str,
             None => return Err::<Assignment, JMUErr>(
-                JMUErr::new("Received an empty value.")
+                JMUErr::new(
+                    &format!(
+                        "Received an empty key at position \"{:?}:{:?}\"!",
+                        key.start.line,
+                        key.start.column
+                    )
+                )
             )
         };
         Ok(Assignment::AssignmentList(key_str, assignment_blocks))

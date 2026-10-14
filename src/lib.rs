@@ -31,6 +31,12 @@ pub use modules::parser::*;
 
 /// Re-exporting the module
 /// containing the structure
+/// to record position info
+/// on a character.
+pub use modules::position::*;
+
+/// Re-exporting the module
+/// containing the structure
 /// and function to deserialize
 /// a string of JMU markup into
 /// a Rust data structure that 

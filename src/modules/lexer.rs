@@ -7,6 +7,12 @@ Licensed under the FSL v1.
 /// to catch and handle errors.
 use super::err::JMUErr;
 
+/// Importing the structure 
+/// to record the position 
+/// of a character
+/// in source code.
+use super::position::Position;
+
 /// A function to check
 /// whether a character
 /// is numeric or not.
@@ -29,16 +35,6 @@ pub fn is_numeric(
         )
     };
     Ok(chars.contains(&character))
-}
-
-/// A structure to capture the 
-/// current position of a character
-/// and provide information on the 
-/// start and end of a JMU token.
-#[derive(Debug, Clone, PartialEq)]
-pub struct Position {
-    pub line: usize,
-    pub column: usize
 }
 
 /// An enumeration "listing"
