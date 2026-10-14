@@ -231,7 +231,7 @@ impl Parser {
             Err::<Assignment, JMUErr>(
                 JMUErr::new(
                     &format!(
-                        "Expected a string and then an assignment smybol at position \"{:?}:{:?}\"!",
+                        "Expected a string and then an assignment symbol at position \"{:?}:{:?}\"!",
                         self.peek_n(&0)?.start.line,
                         self.peek_n(&0)?.start.column
                     )
@@ -272,8 +272,8 @@ impl Parser {
                     JMUErr::new(
                         &format!(
                             "Unexpected token at position \"{:?}:{:?}\"!",
-                            self.peek_n(&0)?.start.line,
-                            self.peek_n(&0)?.start.column
+                            first.start.line,
+                            first.start.column
                         )
                     )
                 )

@@ -2,7 +2,7 @@
 
 ![JMU CI](https://github.com/alyxshang/jmu/actions/workflows/rust.yml/badge.svg)
 
-***A parser and deserializer for a data markup language inspired by Jirai Kei.***
+***A parser and deserializer for a data markup language with a syntax inspired by Jirai Kei internet slang.***
 
 ## ABOUT
 

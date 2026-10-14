@@ -86,8 +86,8 @@ pub fn tokenize(
         )
     }
     else{
-        let mut line: usize = 0;
-        let mut column: usize = 0;
+        let mut line: usize = 1;
+        let mut column: usize = 1;
         let mut cursor: usize = 0;
         let mut stream: Vec<Token> = Vec::new();
         while cursor < chars.len(){

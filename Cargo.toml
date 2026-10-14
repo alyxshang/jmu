@@ -5,7 +5,7 @@ edition = "2024"
 author = ["Alyx Shang <alyxshang@alyxshang.boo>"]
 license-file = "LICENSE"
 readme = "README.markdown"
-description= "A parser and deserializer for a data markup language inspired by Jirai Kei."
+description= "A parser and deserializer for a data markup language with a syntax inspired by Jirai Kei internet slang."
 homepage = "https://github.com/alyxshang/jmu"
 repository = "https://github.com/alyxshang/jmu"
 
