@@ -10,7 +10,7 @@ This repository contains the source code for a parser for a data markup
 language inspired by [Jirai Kei](https://aesthetics.fandom.com/wiki/Jirai_Kei). The parser is written
 without any external dependencies and was made to be light and fast. The
 language itself was designed by me and is an abbreviation for
-***J***irai ***M***ark***U***p language. The crate does depend on the
+***J***irai Data ***M***ark***U***p language. The crate does depend on the
 [`serde`](https://serde.rs) library to handle deserialization of JMU data into Rust data
 structures.
 
